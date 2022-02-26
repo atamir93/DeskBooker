@@ -1,12 +1,21 @@
-﻿using System;
+﻿using DeskBooker.Core.Domain;
+using System;
 using Xunit;
 
 namespace DeskBooker.Core.Processor
 {
     public class DeskBookingRequestProcessorTests
     {
+        private readonly DeskBookingRequestProcessor processor;
+
+        // Setup
+        public DeskBookingRequestProcessorTests()
+        {
+            processor = new DeskBookingRequestProcessor();
+        }
+
         [Fact]
-        public void ShouldReturnDeskBookingResultWithRequestValues()
+        public void RequestIsNotNull_ReturnDeskBookingResultWithRequestValues()
         {
             // Arrange
             var request = new DeskBookingRequest
@@ -16,8 +25,7 @@ namespace DeskBooker.Core.Processor
                 Email = "test@gmail.com",
                 Date = new DateTime(2020, 04, 08)
             };
-            var processor = new DeskBookingRequestProcessor();
-            
+
             // Act
             DeskBookingResult result = processor.BookDesk(request);
 
@@ -27,6 +35,13 @@ namespace DeskBooker.Core.Processor
             Assert.Equal(request.LastName, result.LastName);
             Assert.Equal(request.Email, result.Email);
             Assert.Equal(request.Date, result.Date);
+        }
+
+        [Fact]
+        public void RequestIsNull_ThrowException()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => processor.BookDesk(null));
+            Assert.Equal("request", exception.ParamName);
         }
     }
 }
