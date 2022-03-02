@@ -3,10 +3,14 @@ using DeskBooker.Core.Domain;
 
 namespace DeskBooker.Core.Processor
 {
-    public class DeskBookingRequestProcessor
+    public class DeskBookingRequestProcessor : IDeskBookingRequestProcessor
     {
         private readonly IDeskBookingRepository deskBookingRepository;
         private readonly IDeskRepository deskRepository;
+
+        public DeskBookingRequestProcessor()
+        {
+        }
 
         public DeskBookingRequestProcessor(IDeskBookingRepository deskBookingRepository, IDeskRepository deskRepository)
         {

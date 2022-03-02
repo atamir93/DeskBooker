@@ -1,4 +1,5 @@
 ﻿using DeskBooker.Core.DataInterface;
+using DeskBooker.Core.Processor;
 using DeskBooker.DataAccess;
 using DeskBooker.DataAccess.Repositories;
 using Microsoft.Data.Sqlite;
@@ -30,6 +31,7 @@ namespace DeskBooker.Web
 
             EnsureDatabaseExists(connection);
 
+            services.AddTransient<IDeskBookingRequestProcessor, DeskBookingRequestProcessor>();
             services.AddTransient<IDeskRepository, DeskRepository>();
             services.AddTransient<IDeskBookingRepository, DeskBookingRepository>();
         }
